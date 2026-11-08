@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div id="app" class="hidden">
+
+    <!-- ============ GIAO DIỆN NGÂN HÀNG ============ -->
+    <div class="stage hidden" id="stage">
+
+        <aside class="left">
+            <div class="brand">
+                <img src="logo.png" alt="" id="logoImg" onerror="this.style.display='none';document.getElementById('logoText').style.display='flex'">
+                <div class="logo-text" id="logoText" style="display:none">
+                    <span class="l1">Toolun City</span>
+                    <span class="l2">BANK</span>
+                    <span class="l3">ROLEPLAY</span>
+                </div>
+            </div>
+
+            <div class="menu">
+                <div class="menu-tag bankname">TOOLUN CITY BANK</div>
+
+                <button class="nav active" data-page="overview">
+                    <span class="ico" data-i="bank"></span>
+                    <span class="txt"><b>Tổng quan</b><small>Số dư &amp; Giao dịch nhanh</small></span>
+                    <span class="chev" data-i="right"></span>
+                </button>
+                <button class="nav" data-page="transactions">
+                    <span class="ico" data-i="swap"></span>
+                    <span class="txt"><b>Giao dịch</b><small>Chuyển &amp; Nhận tiền</small></span>
+                    <span class="chev" data-i="right"></span>
+                </button>
+                <button class="nav" data-page="settings">
+                    <span class="ico" data-i="gear"></span>
+                    <span class="txt"><b>Cài đặt</b><small>Đổi mã PIN &amp; Tùy chỉnh</small></span>
+                    <span class="chev" data-i="right"></span>
+                </button>
+            </div>
+
+            <button class="logout" id="logout">
+                <span class="ico" data-i="logout"></span>
+                <span class="txt"><b>Đăng xuất</b><small>Đăng xuất khỏi ngân hàng</small></span>
+            </button>
+        </aside>
+
+        <main class="panel">
+            <header class="phead">
+                <span class="ico big" data-i="bank"></span>
+                <div>
+                    <h1 class="bankname">TOOLUN CITY BANK</h1>
+                    <p>An toàn <i>•</i> Nhanh chóng <i>•</i> Hiện đại</p>
+                </div>
+            </header>
+
+            <!-- ---------- TỔNG QUAN ---------- -->
+            <section class="page" id="page-overview">
+                <div class="grid2">
+                    <div class="box">
+                        <h4><span class="ico" data-i="user"></span>Thông tin tài khoản</h4>
+                        <div class="inner profile">
+                            <div class="avatar"><span data-i="user"></span></div>
+                            <div>
+                                <div class="pname" id="ov-name">---</div>
+                                <div class="psub" id="ov-id">ID: #0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h4><span class="ico" data-i="card"></span>Số tài khoản (Citizen ID)</h4>
+                        <div class="inner big center"><span id="ov-cid">---</span></div>
+                    </div>
+                    <div class="box">
+                        <h4><span class="ico" data-i="wallet"></span>Tiền mặt trong ví</h4>
+                        <div class="inner big center"><span id="ov-cash">$0</span></div>
+                    </div>
+                    <div class="box">
+                        <h4><span class="ico" data-i="coins"></span>Số dư hiện tại</h4>
+                        <div class="inner big center"><span id="ov-bank">$0</span></div>
+                    </div>
+                </div>
+
+                <div class="sechead">
+                    <h4><span class="ico" data-i="clock"></span>Giao dịch gần đây</h4>
+                    <button class="pill" id="ov-more">Xem thêm <span data-i="right"></span></button>
+                </div>
+                <table class="tbl">
+                    <thead><tr><th style="width:26%">Loại</th><th>Nội dung</th><th class="r" style="width:22%">Số tiền</th></tr></thead>
+                    <tbody id="ov-rows"></tbody>
+                </table>
+
+                <div class="sechead" style="margin-top:12px"><h4><span class="ico" data-i="bolt"></span>Thao tác nhanh</h4></div>
+                <div class="actions">
+                    <button class="act" id="act-deposit"><span data-i="coins"></span>GỬI TIỀN VÀO TK<span data-i="down"></span></button>
+                    <button class="act" id="act-withdraw"><span data-i="up"></span>RÚT TIỀN MẶT<span data-i="up"></span></button>
+                    <button class="act" id="act-transfer"><span data-i="swap"></span>CHUYỂN KHOẢN<span data-i="right"></span></button>
+                </div>
+            </section>
+
+            <!-- ---------- GIAO DỊCH ---------- -->
+            <section class="page hidden" id="page-transactions">
+                <div class="sheet">
+                    <div class="sheet-head">
+                        <h3><span class="stripe"></span>Lịch sử giao dịch</h3>
+                        <select id="tx-filter" class="select">
+                            <option value="7">7 ngày gần đây</option>
+                            <option value="30">30 ngày gần đây</option>
+                            <option value="90">90 ngày gần đây</option>
+                            <option value="0">Tất cả</option>
+                        </select>
+                    </div>
+                    <table class="tbl tall">
+                        <thead><tr><th style="width:24%">Loại</th><th>Người dùng</th><th class="r" style="width:20%">Số tiền</th><th class="r" style="width:20%">Thời gian</th></tr></thead>
+                        <tbody id="tx-rows"></tbody>
+                    </table>
+                    <div class="pager">
+                        <div class="pager-l">
+                            <button class="sq" id="pg-prev"><span data-i="left"></span></button>
+                            <span class="pg" id="pg-label">1 / 1</span>
+                            <button class="sq" id="pg-next"><span data-i="right"></span></button>
+                        </div>
+                        <button class="pill big" id="pg-more">Xem thêm <span data-i="right"></span></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ---------- CÀI ĐẶT ---------- -->
+            <section class="page hidden" id="page-settings">
+                <div class="sheet">
+                    <div class="sheet-head">
+                        <h3><span class="stripe"></span><span class="ico" data-i="gear"></span>Cài đặt</h3>
+                    </div>
+
+                    <div class="srow">
+                        <span class="ico big" data-i="lock"></span>
+                        <div class="sinfo"><b>Đổi mã PIN</b><small id="pin-note">Thay đổi mã PIN để bảo mật tài khoản</small></div>
+                        <button class="pill big" id="btn-pin">Đổi ngay <span data-i="right"></span></button>
+                    </div>
+
+                    <div class="srow">
+                        <span class="ico big" data-i="bell"></span>
+                        <div class="sinfo"><b>Thông báo giao dịch</b><small>Nhận thông báo khi có tiền chuyển đến</small></div>
+                        <label class="switch"><input type="checkbox" id="notifToggle" checked><span class="slider"></span></label>
+                    </div>
+
+                    <div class="srow">
+                        <span class="ico big" data-i="monitor"></span>
+                        <div class="sinfo"><b>Giao diện</b><small>Tùy chỉnh giao diện hiển thị</small></div>
+                        <select id="themeSelect" class="select">
+                            <option value="light">Sáng (Default)</option>
+                            <option value="dark">Tối</option>
+                        </select>
+                    </div>
+
+                    <div class="srow safe">
+                        <span class="ico big" data-i="shield"></span>
+                        <div class="sinfo"><b>Tài khoản của bạn luôn được bảo mật</b><small><span class="bankname">TOOLUN CITY BANK</span> cam kết bảo vệ thông tin của bạn.</small></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ============ ATM NHẬP PIN ============ -->
+    <div class="atm hidden" id="atm">
+        <div class="atm-head">
+            <b>XÁC NHẬN MÃ PIN ATM</b>
+            <button class="x" id="atm-close"><span data-i="x"></span></button>
+        </div>
+        <div class="dots"><i></i><i></i><i></i><i></i></div>
+        <div class="atm-msg" id="atm-msg">Vui lòng nhập 4 chữ số mã PIN</div>
+        <div class="numpad" id="numpad"></div>
+    </div>
+
+    <!-- ============ MODAL ============ -->
+    <div class="modal hidden" id="modal"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
